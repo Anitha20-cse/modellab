@@ -2,42 +2,68 @@
 
   import React, { useState } from "react";
 
-function App() {
-    const [name,setname]=useState("");
-    const [email,setemail]=useState("");
-    const [gender,setgender]=useState("");
-    const [country,setcountry]=useState("");
-    const [html,sethtml] = useState(false);
-    const [css,setcss] = useState(false); 
-    const [js,setjs] = useState(false);
-    const [msg,setmsg] = useState("");
+export default function SimpleForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
+  const [html, setHtml] = useState(false);
+  const [css, setCss] = useState(false);
+  const [js, setJs] = useState(false);
+  const [country, setCountry] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [msg, setMsg] = useState("");
 
-    const submit = () => {
-         if (!name || !email || !country ){
-            setmsg("please fill all the required fields");
-         }
-         else if(!email.includes("@") || !email.includes(".")){
-            setmsg("please enter valid email");
-         }
-         setmsg("Form submitted");
-    }
+  const submit = () => {
+    if (!name || !email || !gender || !country || !feedback)
+      setMsg("⚠ Please fill all fields");
+    else if (!email.includes("@") || !email.includes("."))
+      setMsg("❌ Invalid email");
+    else setMsg("✅ Form submitted!");
+  };
 
-    return(
-        <div>
-            <h3>Simple form</h3>
-            <input 
-            placeholder = "Name" 
-            onChange={e=>setname(e.target.value)}
-            />
+  return (
+    <div style={{ maxWidth: 400, margin: "auto" }}>
+      <h3>Simple Form Validation</h3>
 
-            <input placeholder = "email" onChange={e=>setemail(e.target.value)}/>
-            <div>
-                Gender:{""}
-                <input type="radio" name="gender" value="Male" onChange={e=>{}}
-            </div>
-        </div>
-    )
+      <input
+        placeholder="Name"
+        onChange={(e) => setName(e.target.value)}
+      /><br /><br />
 
+      <input
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      /><br /><br />
+
+      Gender:{" "}
+      <input type="radio" name="gender" value="Male" onChange={(e) => setGender(e.target.value)} /> Male
+      <input type="radio" name="gender" value="Female" onChange={(e) => setGender(e.target.value)} /> Female
+      <br /><br />
+
+      Skills:{" "}
+      <input type="checkbox" checked={html} onChange={() => setHtml(!html)} /> HTML
+      <input type="checkbox" checked={css} onChange={() => setCss(!css)} /> CSS
+      <input type="checkbox" checked={js} onChange={() => setJs(!js)} /> JS
+      <br /><br />
+
+      Country:{" "}
+      <select onChange={(e) => setCountry(e.target.value)}>
+        <option value="">Select Country</option>
+        <option>India</option>
+        <option>USA</option>
+        <option>UK</option>
+      </select><br /><br />
+
+      <textarea
+        placeholder="Your feedback..."
+        rows="3"
+        onChange={(e) => setFeedback(e.target.value)}
+      /><br /><br />
+
+      <button onClick={submit}>Submit</button>
+      <p style={{ color: msg.includes("✅") ? "green" : "red" }}>{msg}</p>
+    </div>
+  );
 }
 
 Crud
